@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package models;
+
+message NodeStatus {
+  string id = 1;
+  string address = 2;
+  string build = 3;
+  string started_at = 4;
+  string updated_at = 5;
+  bool is_available = 6;
+  bool is_live = 7;
+}
+
+message ClusterStatusResponse {
+  repeated NodeStatus nodes = 1;
+  string last_updated = 2;
+}
+
+message Void {}
+
+service Cluster {
+  rpc GetStatus(Void) returns (ClusterStatusResponse) {}
+}
