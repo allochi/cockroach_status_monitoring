@@ -12,13 +12,13 @@ message NodeStatus {
   bool is_live = 7;
 }
 
-message ClusterStatusResponse {
+message MonitoringResponse {
   repeated NodeStatus nodes = 1;
   string last_updated = 2;
 }
 
 message Void {}
 
-service Cluster {
-  rpc GetStatus(Void) returns (ClusterStatusResponse) {}
+service MonitoringService {
+  rpc GetStatus(Void) returns (MonitoringResponse) {}
 }

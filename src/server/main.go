@@ -20,12 +20,12 @@ var ch models.ClusterHealth
 type StatusService struct{}
 
 // GetStatus gRPC implementation
-func (s StatusService) GetStatus(ctx context.Context, void *models.Void) (*models.ClusterStatusResponse, error) {
+func (s StatusService) GetStatus(ctx context.Context, void *models.Void) (*models.MonitoringResponse, error) {
 	var nodes []*models.NodeStatus
 	for _, node := range ch.Nodes {
 		nodes = append(nodes, &node)
 	}
-	response := &models.ClusterStatusResponse{Nodes: nodes}
+	response := &models.MonitoringResponse{Nodes: nodes}
 	return response, nil
 }
 
@@ -62,7 +62,7 @@ func main() {
 	srv := grpc.NewServer()
 
 	var statusService StatusService
-	models.RegisterClusterServer(srv, statusService)
+	models.RegisterMonitoringServiceServer(srv, statusService)
 
 	ln, err := net.Listen("tcp", ":8899")
 	if err != nil {
