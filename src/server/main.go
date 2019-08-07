@@ -11,6 +11,7 @@ import (
 	"google.golang.org/grpc"
 
 	models "../models"
+	providers "../providers"
 )
 
 var ch models.ClusterHealth
@@ -42,7 +43,7 @@ func main() {
 
 	ch = models.ClusterHealth{
 		EntryAddress: entryAddress,
-		Provider:     models.CmdProvider{},
+		Provider:     providers.CmdProvider{},
 	}
 
 	// Update cluster status periodically

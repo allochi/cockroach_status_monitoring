@@ -7,6 +7,7 @@ import (
 	"regexp"
 
 	models "../models"
+	providers "../providers"
 )
 
 func main() {
@@ -23,7 +24,7 @@ func main() {
 
 	ch := models.ClusterHealth{
 		EntryAddress: entryAddress,
-		Provider:     models.CmdProvider{},
+		Provider:     providers.CmdProvider{},
 	}
 
 	ch.Update()
