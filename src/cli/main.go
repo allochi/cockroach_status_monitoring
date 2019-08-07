@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"log"
-	"os"
 	"regexp"
 
 	models "../models"
@@ -11,19 +11,19 @@ import (
 )
 
 func main() {
-	var entryAddress string
-	if len(os.Args) > 1 {
-		entryAddress = os.Args[1]
+	var entryAddress = flag.String("address", "", "host address in the format `address:port` or left empty for `localhost:26257")
+	flag.Parse()
 
-		if !isValidAddress(entryAddress) {
+	if *entryAddress != "" {
+		if !isValidAddress(*entryAddress) {
 			log.Fatalf("host address must be in the format `address:port` or left empty for `localhost:26257`\n")
 		}
 	} else {
-		entryAddress = "localhost:26257"
+		*entryAddress = "localhost:26257"
 	}
 
 	ch := models.ClusterHealth{
-		EntryAddress: entryAddress,
+		EntryAddress: *entryAddress,
 		Provider:     providers.CmdProvider{},
 	}
 
