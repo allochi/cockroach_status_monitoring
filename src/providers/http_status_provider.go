@@ -44,16 +44,33 @@ func (sp HTTPStatusProvider) Call() ([]models.Node, error) {
 
 	// check each node is available
 	for i := range nodes {
-		if nodes[i].IsLive {
-			client, err := http.Get("http://" + nodes[i].HTTPAddress + "/health?ready=1")
-			nodes[i].IsAvailable = err == nil && client.StatusCode == http.StatusOK
-		}
+		nodes[i].IsLive, nodes[i].IsAvailable = getLiveAndAvailable(nodes[i])
 	}
 
 	return nodes, nil
 }
 
+func getLiveAndAvailable(node models.Node) (bool, bool) {
+	var live bool
+	var available bool
+
+	{
+		client, err := http.Get("http://" + node.HTTPAddress + "/health")
+		live = err == nil && client.StatusCode == http.StatusOK
+	}
+
+	{
+		if live {
+			client, err := http.Get("http://" + node.HTTPAddress + "/health?ready=1")
+			available = err == nil && client.StatusCode == http.StatusOK
+		}
+	}
+
+	return live, available
+}
+
 func (sp HTTPStatusProvider) parseNodes(content []byte) ([]models.Node, error) {
+	// temporary struct to extract properties from server response
 	var state struct {
 		Nodes []struct {
 			Desc struct {

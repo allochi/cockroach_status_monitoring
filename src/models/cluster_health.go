@@ -44,8 +44,5 @@ func (ch *ClusterHealth) Update() {
 	}
 
 	ch.Nodes = httpNodes
-
-	// TODO: Check live nodes with _status/vars
-
 	ch.UpdatedAt = time.Now()
 }

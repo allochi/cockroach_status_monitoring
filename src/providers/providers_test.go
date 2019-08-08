@@ -1,10 +1,7 @@
 package providers
 
 import (
-	"fmt"
 	"io/ioutil"
-	"net/http"
-	"net/http/httptest"
 	"testing"
 )
 
@@ -62,22 +59,22 @@ func TestCMDParseNodes(t *testing.T) {
 	}
 }
 
-func TestHTTPCall(t *testing.T) {
-	healthEndpoint := func(w http.ResponseWriter, r *http.Request) {
-		if len(r.URL.Query()["ready"]) > 0 {
-			http.Error(w, "", http.StatusServiceUnavailable)
-		} else {
-			http.Error(w, "", http.StatusC)
-		}
+// func TestHTTPHealthCalls(t *testing.T) {
+// 	healthEndpoint := func(w http.ResponseWriter, r *http.Request) {
+// 		if len(r.URL.Query()["ready"]) > 0 {
+// 			http.Error(w, "", http.StatusServiceUnavailable)
+// 		} else {
+// 			http.Error(w, "", http.StatusServiceUnavailable)
+// 		}
 
-	}
+// 	}
 
-	ts := httptest.NewServer(http.HandlerFunc(healthEndpoint))
-	defer ts.Close()
+// 	ts := httptest.NewServer(http.HandlerFunc(healthEndpoint))
+// 	defer ts.Close()
 
-	{
-		client, _ := http.Get(ts.URL + "/health?ready=1")
-		fmt.Println(client.Status)
-	}
+// 	{
+// 		client, _ := http.Get(ts.URL + "/health?ready=1")
+// 		fmt.Println(client.Status)
+// 	}
 
-}
+// }
