@@ -1,6 +1,6 @@
 # Cockroach DB cluster status gRPC service and CLI
 
-This is a demo project and should not be used in production.
+**This is a demo project and should not be used in production.**
 
 The goal is to create a small services that aim to monitor the health status of a cockroachdb cluster.  https://www.cockroachlabs.com/ 
 
