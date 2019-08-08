@@ -18,11 +18,11 @@ Create a command line client (in go) allowing to retrieve the monitoring informa
 
 - You can compile the whole solution using only `make`
 - The `dist` folder will hold the server, the client and the cli tool
-- the cli too doesn't require the server and it serialize the nodes state into `json` and print them out
+- The cli too doesn't require the server and it serializes all nodes state into `json` and print them out
 - Both the server and the cli require an initial address and then it's up to them to discover the cluster
 - The server periodically calls the cluster for it's state and cache that state, the duration between updates can be modified
 - If the entry host is not specified it's assumed to be `localhost:8008`
-- if the entry host dies, the server try other addresses from the cache and promote the first successful one to be the new entry address
+- If the entry host dies, the server automatically tries other addresses from its internal cache and promote the first successful address to be the new entry address
 
 
 ## Notes
