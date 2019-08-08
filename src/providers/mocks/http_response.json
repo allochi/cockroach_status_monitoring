@@ -2619,7 +2619,7 @@
                             "localityAddress": []
                         },
                         "capacity": {
-                            "capacity": "499313172480",
+                            "capacity": "1993131724",
                             "available": "49755873280",
                             "used": "238170710",
                             "logicalBytes": "868782943",
@@ -2649,7 +2649,7 @@
                         "addsstable.applications": 0,
                         "addsstable.copies": 0,
                         "addsstable.proposals": 0,
-                        "capacity": 499313172480,
+                        "capacity": 1993131724,
                         "capacity.available": 49755873280,
                         "capacity.reserved": 0,
                         "capacity.used": 238170710,

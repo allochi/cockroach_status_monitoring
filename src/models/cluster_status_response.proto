@@ -2,23 +2,31 @@ syntax = "proto3";
 
 package models;
 
-message NodeStatus {
-  string id = 1;
-  string address = 2;
-  string build = 3;
-  string started_at = 4;
-  string updated_at = 5;
-  bool is_available = 6;
-  bool is_live = 7;
+message Node {
+  int64 ID = 1;
+  string Address = 2;
+  string HTTPAddress = 3;
+  string StartedAt = 4;
+  string UpdatedAt = 5;
+  int64 Capacity = 6;
+  int64 CapacityAvaliable = 7;
+  bool IsAvailable = 8;
+  bool IsLive = 9;
+  bool IsLowInMemory = 10;
 }
 
-message MonitoringResponse {
-  repeated NodeStatus nodes = 1;
-  string last_updated = 2;
+message HealthResponse {
+  repeated Node Nodes = 1;
+  int64 TotalNodes = 2;
+  int64 TotalNodesLive = 3;
+  int64 TotalNodesAvailable = 4;
+  int64 TotalNodesLowMemory = 5;
+  bool ClusterUnavailable = 6;
+  int64 UpdatedAt = 7;
 }
 
 message Void {}
 
-service MonitoringService {
-  rpc GetStatus(Void) returns (MonitoringResponse) {}
+service HealthService {
+  rpc GetStatus(Void) returns (HealthResponse) {}
 }

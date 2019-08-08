@@ -24,138 +24,202 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type NodeStatus struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Address              string   `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
-	Build                string   `protobuf:"bytes,3,opt,name=build,proto3" json:"build,omitempty"`
-	StartedAt            string   `protobuf:"bytes,4,opt,name=started_at,json=startedAt,proto3" json:"started_at,omitempty"`
-	UpdatedAt            string   `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	IsAvailable          bool     `protobuf:"varint,6,opt,name=is_available,json=isAvailable,proto3" json:"is_available,omitempty"`
-	IsLive               bool     `protobuf:"varint,7,opt,name=is_live,json=isLive,proto3" json:"is_live,omitempty"`
+type Node struct {
+	ID                   int64    `protobuf:"varint,1,opt,name=ID,proto3" json:"ID"`
+	Address              string   `protobuf:"bytes,2,opt,name=Address,proto3" json:"Address"`
+	HTTPAddress          string   `protobuf:"bytes,3,opt,name=HTTPAddress,proto3" json:"HTTPAddress"`
+	StartedAt            string   `protobuf:"bytes,4,opt,name=StartedAt,proto3" json:"StartedAt"`
+	UpdatedAt            string   `protobuf:"bytes,5,opt,name=UpdatedAt,proto3" json:"UpdatedAt"`
+	Capacity             int64    `protobuf:"varint,6,opt,name=Capacity,proto3" json:"Capacity"`
+	CapacityAvaliable    int64    `protobuf:"varint,7,opt,name=CapacityAvaliable,proto3" json:"CapacityAvaliable"`
+	IsAvailable          bool     `protobuf:"varint,8,opt,name=IsAvailable,proto3" json:"IsAvailable"`
+	IsLive               bool     `protobuf:"varint,9,opt,name=IsLive,proto3" json:"IsLive"`
+	IsLowInMemory        bool     `protobuf:"varint,10,opt,name=IsLowInMemory,proto3" json:"IsLowInMemory"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *NodeStatus) Reset()         { *m = NodeStatus{} }
-func (m *NodeStatus) String() string { return proto.CompactTextString(m) }
-func (*NodeStatus) ProtoMessage()    {}
-func (*NodeStatus) Descriptor() ([]byte, []int) {
+func (m *Node) Reset()         { *m = Node{} }
+func (m *Node) String() string { return proto.CompactTextString(m) }
+func (*Node) ProtoMessage()    {}
+func (*Node) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2c1179cc8f2c3db0, []int{0}
 }
 
-func (m *NodeStatus) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_NodeStatus.Unmarshal(m, b)
+func (m *Node) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Node.Unmarshal(m, b)
 }
-func (m *NodeStatus) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_NodeStatus.Marshal(b, m, deterministic)
+func (m *Node) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Node.Marshal(b, m, deterministic)
 }
-func (m *NodeStatus) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_NodeStatus.Merge(m, src)
+func (m *Node) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Node.Merge(m, src)
 }
-func (m *NodeStatus) XXX_Size() int {
-	return xxx_messageInfo_NodeStatus.Size(m)
+func (m *Node) XXX_Size() int {
+	return xxx_messageInfo_Node.Size(m)
 }
-func (m *NodeStatus) XXX_DiscardUnknown() {
-	xxx_messageInfo_NodeStatus.DiscardUnknown(m)
+func (m *Node) XXX_DiscardUnknown() {
+	xxx_messageInfo_Node.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_NodeStatus proto.InternalMessageInfo
+var xxx_messageInfo_Node proto.InternalMessageInfo
 
-func (m *NodeStatus) GetId() string {
+func (m *Node) GetID() int64 {
 	if m != nil {
-		return m.Id
+		return m.ID
 	}
-	return ""
+	return 0
 }
 
-func (m *NodeStatus) GetAddress() string {
+func (m *Node) GetAddress() string {
 	if m != nil {
 		return m.Address
 	}
 	return ""
 }
 
-func (m *NodeStatus) GetBuild() string {
+func (m *Node) GetHTTPAddress() string {
 	if m != nil {
-		return m.Build
+		return m.HTTPAddress
 	}
 	return ""
 }
 
-func (m *NodeStatus) GetStartedAt() string {
+func (m *Node) GetStartedAt() string {
 	if m != nil {
 		return m.StartedAt
 	}
 	return ""
 }
 
-func (m *NodeStatus) GetUpdatedAt() string {
+func (m *Node) GetUpdatedAt() string {
 	if m != nil {
 		return m.UpdatedAt
 	}
 	return ""
 }
 
-func (m *NodeStatus) GetIsAvailable() bool {
+func (m *Node) GetCapacity() int64 {
+	if m != nil {
+		return m.Capacity
+	}
+	return 0
+}
+
+func (m *Node) GetCapacityAvaliable() int64 {
+	if m != nil {
+		return m.CapacityAvaliable
+	}
+	return 0
+}
+
+func (m *Node) GetIsAvailable() bool {
 	if m != nil {
 		return m.IsAvailable
 	}
 	return false
 }
 
-func (m *NodeStatus) GetIsLive() bool {
+func (m *Node) GetIsLive() bool {
 	if m != nil {
 		return m.IsLive
 	}
 	return false
 }
 
-type MonitoringResponse struct {
-	Nodes                []*NodeStatus `protobuf:"bytes,1,rep,name=nodes,proto3" json:"nodes,omitempty"`
-	LastUpdated          string        `protobuf:"bytes,2,opt,name=last_updated,json=lastUpdated,proto3" json:"last_updated,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+func (m *Node) GetIsLowInMemory() bool {
+	if m != nil {
+		return m.IsLowInMemory
+	}
+	return false
 }
 
-func (m *MonitoringResponse) Reset()         { *m = MonitoringResponse{} }
-func (m *MonitoringResponse) String() string { return proto.CompactTextString(m) }
-func (*MonitoringResponse) ProtoMessage()    {}
-func (*MonitoringResponse) Descriptor() ([]byte, []int) {
+type HealthResponse struct {
+	Nodes                []*Node  `protobuf:"bytes,1,rep,name=Nodes,proto3" json:"Nodes"`
+	TotalNodes           int64    `protobuf:"varint,2,opt,name=TotalNodes,proto3" json:"TotalNodes"`
+	TotalNodesLive       int64    `protobuf:"varint,3,opt,name=TotalNodesLive,proto3" json:"TotalNodesLive"`
+	TotalNodesAvailable  int64    `protobuf:"varint,4,opt,name=TotalNodesAvailable,proto3" json:"TotalNodesAvailable"`
+	TotalNodesLowMemory  int64    `protobuf:"varint,5,opt,name=TotalNodesLowMemory,proto3" json:"TotalNodesLowMemory"`
+	ClusterUnavailable   bool     `protobuf:"varint,6,opt,name=ClusterUnavailable,proto3" json:"ClusterUnavailable"`
+	UpdatedAt            int64    `protobuf:"varint,7,opt,name=UpdatedAt,proto3" json:"UpdatedAt"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *HealthResponse) Reset()         { *m = HealthResponse{} }
+func (m *HealthResponse) String() string { return proto.CompactTextString(m) }
+func (*HealthResponse) ProtoMessage()    {}
+func (*HealthResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2c1179cc8f2c3db0, []int{1}
 }
 
-func (m *MonitoringResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_MonitoringResponse.Unmarshal(m, b)
+func (m *HealthResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_HealthResponse.Unmarshal(m, b)
 }
-func (m *MonitoringResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_MonitoringResponse.Marshal(b, m, deterministic)
+func (m *HealthResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_HealthResponse.Marshal(b, m, deterministic)
 }
-func (m *MonitoringResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MonitoringResponse.Merge(m, src)
+func (m *HealthResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HealthResponse.Merge(m, src)
 }
-func (m *MonitoringResponse) XXX_Size() int {
-	return xxx_messageInfo_MonitoringResponse.Size(m)
+func (m *HealthResponse) XXX_Size() int {
+	return xxx_messageInfo_HealthResponse.Size(m)
 }
-func (m *MonitoringResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MonitoringResponse.DiscardUnknown(m)
+func (m *HealthResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_HealthResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MonitoringResponse proto.InternalMessageInfo
+var xxx_messageInfo_HealthResponse proto.InternalMessageInfo
 
-func (m *MonitoringResponse) GetNodes() []*NodeStatus {
+func (m *HealthResponse) GetNodes() []*Node {
 	if m != nil {
 		return m.Nodes
 	}
 	return nil
 }
 
-func (m *MonitoringResponse) GetLastUpdated() string {
+func (m *HealthResponse) GetTotalNodes() int64 {
 	if m != nil {
-		return m.LastUpdated
+		return m.TotalNodes
 	}
-	return ""
+	return 0
+}
+
+func (m *HealthResponse) GetTotalNodesLive() int64 {
+	if m != nil {
+		return m.TotalNodesLive
+	}
+	return 0
+}
+
+func (m *HealthResponse) GetTotalNodesAvailable() int64 {
+	if m != nil {
+		return m.TotalNodesAvailable
+	}
+	return 0
+}
+
+func (m *HealthResponse) GetTotalNodesLowMemory() int64 {
+	if m != nil {
+		return m.TotalNodesLowMemory
+	}
+	return 0
+}
+
+func (m *HealthResponse) GetClusterUnavailable() bool {
+	if m != nil {
+		return m.ClusterUnavailable
+	}
+	return false
+}
+
+func (m *HealthResponse) GetUpdatedAt() int64 {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return 0
 }
 
 type Void struct {
@@ -190,34 +254,40 @@ func (m *Void) XXX_DiscardUnknown() {
 var xxx_messageInfo_Void proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*NodeStatus)(nil), "models.NodeStatus")
-	proto.RegisterType((*MonitoringResponse)(nil), "models.MonitoringResponse")
+	proto.RegisterType((*Node)(nil), "models.Node")
+	proto.RegisterType((*HealthResponse)(nil), "models.HealthResponse")
 	proto.RegisterType((*Void)(nil), "models.Void")
 }
 
 func init() { proto.RegisterFile("cluster_status_response.proto", fileDescriptor_2c1179cc8f2c3db0) }
 
 var fileDescriptor_2c1179cc8f2c3db0 = []byte{
-	// 291 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x91, 0xbf, 0x6a, 0xf3, 0x40,
-	0x10, 0xc4, 0x3f, 0xf9, 0x8f, 0xfc, 0x79, 0x6d, 0x02, 0x39, 0x02, 0x39, 0x0c, 0x06, 0x47, 0x95,
-	0x2a, 0x17, 0x4e, 0x91, 0xda, 0x55, 0x1a, 0x27, 0x85, 0x4c, 0xd2, 0x8a, 0xb3, 0x6f, 0x09, 0x0b,
-	0x17, 0x9d, 0xb8, 0x5d, 0xe9, 0x11, 0xf3, 0x5c, 0x41, 0xd2, 0x09, 0x17, 0x29, 0xe7, 0x37, 0x03,
-	0xb3, 0x73, 0x07, 0xdb, 0xab, 0x6b, 0x58, 0x30, 0x94, 0x2c, 0x46, 0x1a, 0x2e, 0x03, 0x72, 0xed,
-	0x2b, 0xc6, 0x7d, 0x1d, 0xbc, 0x78, 0x95, 0x7e, 0x7b, 0x8b, 0x8e, 0xb3, 0x9f, 0x04, 0xe0, 0xdd,
-	0x5b, 0x3c, 0xf7, 0x29, 0x75, 0x07, 0x13, 0xb2, 0x3a, 0xd9, 0x25, 0xf9, 0xb2, 0x98, 0x90, 0x55,
-	0x1a, 0x16, 0xc6, 0xda, 0x80, 0xcc, 0x7a, 0xd2, 0xc3, 0x51, 0xaa, 0x07, 0x98, 0x5f, 0x1a, 0x72,
-	0x56, 0x4f, 0x7b, 0x3e, 0x08, 0xb5, 0x05, 0x60, 0x31, 0x41, 0xd0, 0x96, 0x46, 0xf4, 0xac, 0xb7,
-	0x96, 0x91, 0x1c, 0xa5, 0xb3, 0x9b, 0xda, 0x9a, 0x68, 0xcf, 0x07, 0x3b, 0x92, 0xa3, 0xa8, 0x27,
-	0x58, 0x13, 0x97, 0xa6, 0x35, 0xe4, 0xcc, 0xc5, 0xa1, 0x4e, 0x77, 0x49, 0xfe, 0xbf, 0x58, 0x11,
-	0x1f, 0x47, 0xa4, 0x1e, 0x61, 0x41, 0x5c, 0x3a, 0x6a, 0x51, 0x2f, 0x7a, 0x37, 0x25, 0x3e, 0x51,
-	0x8b, 0x99, 0x01, 0xf5, 0xe6, 0x2b, 0x12, 0x1f, 0xa8, 0xfa, 0x2a, 0xe2, 0x58, 0x95, 0xc3, 0xbc,
-	0xf2, 0x16, 0x59, 0x27, 0xbb, 0x69, 0xbe, 0x3a, 0xa8, 0xfd, 0x30, 0x7b, 0x7f, 0x9b, 0x5c, 0x0c,
-	0x81, 0xae, 0xdb, 0x19, 0x96, 0x32, 0x5e, 0x13, 0xe7, 0xae, 0x3a, 0xf6, 0x31, 0xa0, 0x2c, 0x85,
-	0xd9, 0xa7, 0x27, 0x7b, 0x38, 0xc1, 0xfd, 0xad, 0xea, 0x8c, 0xa1, 0xa5, 0x2b, 0xaa, 0x17, 0x58,
-	0xbe, 0xa2, 0xc4, 0x67, 0x5c, 0x8f, 0x3d, 0x5d, 0x7e, 0xb3, 0x19, 0xd5, 0xdf, 0x03, 0xb3, 0x7f,
-	0x97, 0xb4, 0xff, 0x90, 0xe7, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff, 0xaf, 0xb1, 0xff, 0x07, 0xb1,
-	0x01, 0x00, 0x00,
+	// 389 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x92, 0x5f, 0x8b, 0xda, 0x40,
+	0x14, 0xc5, 0x9b, 0x3f, 0x66, 0xcd, 0xdd, 0xae, 0xd0, 0x5b, 0x58, 0x86, 0xa5, 0x2d, 0x21, 0x94,
+	0x92, 0x87, 0x12, 0x8a, 0x7e, 0x82, 0xa0, 0x50, 0x03, 0xb6, 0x94, 0xa8, 0x7d, 0x95, 0xd1, 0x0c,
+	0x34, 0x10, 0x9d, 0x90, 0x19, 0x23, 0x7e, 0xa9, 0x3e, 0xf7, 0xe3, 0x95, 0xcc, 0x98, 0xc4, 0xb8,
+	0xbe, 0xe5, 0x9c, 0xdf, 0x19, 0x72, 0xe7, 0xcc, 0x85, 0x8f, 0xbb, 0xfc, 0x28, 0x24, 0x2b, 0x37,
+	0x42, 0x52, 0x79, 0x14, 0x9b, 0x92, 0x89, 0x82, 0x1f, 0x04, 0x0b, 0x8b, 0x92, 0x4b, 0x8e, 0xce,
+	0x9e, 0xa7, 0x2c, 0x17, 0xfe, 0x3f, 0x13, 0xec, 0x9f, 0x3c, 0x65, 0x38, 0x02, 0x33, 0x9e, 0x11,
+	0xc3, 0x33, 0x02, 0x2b, 0x31, 0xe3, 0x19, 0x12, 0x78, 0x88, 0xd2, 0xb4, 0x64, 0x42, 0x10, 0xd3,
+	0x33, 0x02, 0x37, 0x69, 0x24, 0x7a, 0xf0, 0x38, 0x5f, 0xad, 0x7e, 0x35, 0xd4, 0x52, 0xf4, 0xda,
+	0xc2, 0x0f, 0xe0, 0x2e, 0x25, 0x2d, 0x25, 0x4b, 0x23, 0x49, 0x6c, 0xc5, 0x3b, 0xa3, 0xa6, 0xeb,
+	0x22, 0xa5, 0x9a, 0x0e, 0x34, 0x6d, 0x0d, 0x7c, 0x81, 0xe1, 0x94, 0x16, 0x74, 0x97, 0xc9, 0x33,
+	0x71, 0xd4, 0x34, 0xad, 0xc6, 0xaf, 0xf0, 0xae, 0xf9, 0x8e, 0x2a, 0x9a, 0x67, 0x74, 0x9b, 0x33,
+	0xf2, 0xa0, 0x42, 0xaf, 0x41, 0x3d, 0x67, 0x2c, 0xa2, 0x8a, 0x66, 0xb9, 0xca, 0x0d, 0x3d, 0x23,
+	0x18, 0x26, 0xd7, 0x16, 0x3e, 0x83, 0x13, 0x8b, 0x45, 0x56, 0x31, 0xe2, 0x2a, 0x78, 0x51, 0xf8,
+	0x19, 0x9e, 0x62, 0xb1, 0xe0, 0xa7, 0xf8, 0xf0, 0x83, 0xed, 0x79, 0x79, 0x26, 0xa0, 0x70, 0xdf,
+	0xf4, 0xff, 0x9a, 0x30, 0x9a, 0x33, 0x9a, 0xcb, 0x3f, 0xc9, 0xa5, 0x5b, 0xf4, 0x61, 0x50, 0x97,
+	0x29, 0x88, 0xe1, 0x59, 0xc1, 0xe3, 0xf8, 0x6d, 0xa8, 0x5b, 0x0e, 0x6b, 0x33, 0xd1, 0x08, 0x3f,
+	0x01, 0xac, 0xb8, 0xa4, 0xb9, 0x0e, 0x9a, 0x6a, 0xfa, 0x2b, 0x07, 0xbf, 0xc0, 0xa8, 0x53, 0x6a,
+	0x38, 0x4b, 0x65, 0x6e, 0x5c, 0xfc, 0x06, 0xef, 0x3b, 0xa7, 0xbb, 0xa6, 0xad, 0xc2, 0xf7, 0x50,
+	0xff, 0xc4, 0x82, 0x9f, 0x2e, 0x97, 0x1b, 0xdc, 0x9e, 0x68, 0x11, 0x86, 0x80, 0x53, 0xbd, 0x46,
+	0xeb, 0x03, 0x6d, 0x7f, 0xe1, 0xa8, 0x36, 0xee, 0x90, 0xfe, 0xd3, 0xea, 0x87, 0xe9, 0x0c, 0xdf,
+	0x01, 0xfb, 0x37, 0xcf, 0xd2, 0xf1, 0x0c, 0x9e, 0x74, 0x6f, 0x4b, 0x56, 0x56, 0xd9, 0x8e, 0xe1,
+	0x04, 0xdc, 0xef, 0x4c, 0x2e, 0xd5, 0xa2, 0x62, 0x5b, 0x5a, 0x9d, 0x7d, 0x79, 0x6e, 0x54, 0xbf,
+	0x69, 0xff, 0xcd, 0xd6, 0x51, 0x8b, 0x3c, 0xf9, 0x1f, 0x00, 0x00, 0xff, 0xff, 0x43, 0xbd, 0x31,
+	0xe5, 0xe9, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -228,72 +298,72 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// MonitoringServiceClient is the client API for MonitoringService service.
+// HealthServiceClient is the client API for HealthService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type MonitoringServiceClient interface {
-	GetStatus(ctx context.Context, in *Void, opts ...grpc.CallOption) (*MonitoringResponse, error)
+type HealthServiceClient interface {
+	GetStatus(ctx context.Context, in *Void, opts ...grpc.CallOption) (*HealthResponse, error)
 }
 
-type monitoringServiceClient struct {
+type healthServiceClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewMonitoringServiceClient(cc *grpc.ClientConn) MonitoringServiceClient {
-	return &monitoringServiceClient{cc}
+func NewHealthServiceClient(cc *grpc.ClientConn) HealthServiceClient {
+	return &healthServiceClient{cc}
 }
 
-func (c *monitoringServiceClient) GetStatus(ctx context.Context, in *Void, opts ...grpc.CallOption) (*MonitoringResponse, error) {
-	out := new(MonitoringResponse)
-	err := c.cc.Invoke(ctx, "/models.MonitoringService/GetStatus", in, out, opts...)
+func (c *healthServiceClient) GetStatus(ctx context.Context, in *Void, opts ...grpc.CallOption) (*HealthResponse, error) {
+	out := new(HealthResponse)
+	err := c.cc.Invoke(ctx, "/models.HealthService/GetStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// MonitoringServiceServer is the server API for MonitoringService service.
-type MonitoringServiceServer interface {
-	GetStatus(context.Context, *Void) (*MonitoringResponse, error)
+// HealthServiceServer is the server API for HealthService service.
+type HealthServiceServer interface {
+	GetStatus(context.Context, *Void) (*HealthResponse, error)
 }
 
-// UnimplementedMonitoringServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedMonitoringServiceServer struct {
+// UnimplementedHealthServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedHealthServiceServer struct {
 }
 
-func (*UnimplementedMonitoringServiceServer) GetStatus(ctx context.Context, req *Void) (*MonitoringResponse, error) {
+func (*UnimplementedHealthServiceServer) GetStatus(ctx context.Context, req *Void) (*HealthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStatus not implemented")
 }
 
-func RegisterMonitoringServiceServer(s *grpc.Server, srv MonitoringServiceServer) {
-	s.RegisterService(&_MonitoringService_serviceDesc, srv)
+func RegisterHealthServiceServer(s *grpc.Server, srv HealthServiceServer) {
+	s.RegisterService(&_HealthService_serviceDesc, srv)
 }
 
-func _MonitoringService_GetStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _HealthService_GetStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Void)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MonitoringServiceServer).GetStatus(ctx, in)
+		return srv.(HealthServiceServer).GetStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/models.MonitoringService/GetStatus",
+		FullMethod: "/models.HealthService/GetStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MonitoringServiceServer).GetStatus(ctx, req.(*Void))
+		return srv.(HealthServiceServer).GetStatus(ctx, req.(*Void))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _MonitoringService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "models.MonitoringService",
-	HandlerType: (*MonitoringServiceServer)(nil),
+var _HealthService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "models.HealthService",
+	HandlerType: (*HealthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetStatus",
-			Handler:    _MonitoringService_GetStatus_Handler,
+			Handler:    _HealthService_GetStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

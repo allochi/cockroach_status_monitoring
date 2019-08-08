@@ -15,7 +15,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	client := models.NewMonitoringServiceClient(conn)
+	client := models.NewHealthServiceClient(conn)
 	status, err := client.GetStatus(context.Background(), &models.Void{})
 	if err != nil {
 		log.Fatalln("Couldn't call GetStatus", err)

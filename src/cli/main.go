@@ -11,20 +11,21 @@ import (
 )
 
 func main() {
-	var entryAddress = flag.String("address", "", "host address in the format `address:port` or left empty for `localhost:26257")
+	var entryAddress string
+	flag.StringVar(&entryAddress, "address", "", "entry host http address in the format `address:port` or left empty for `localhost:8080")
 	flag.Parse()
 
-	if *entryAddress != "" {
-		if !isValidAddress(*entryAddress) {
-			log.Fatalf("host address must be in the format `address:port` or left empty for `localhost:26257`\n")
+	if entryAddress != "" {
+		if !isValidAddress(entryAddress) {
+			log.Fatalf("host address must be in the format `address:port` or left empty for `localhost:8080`\n")
 		}
 	} else {
-		*entryAddress = "localhost:26257"
+		entryAddress = "localhost:8080"
 	}
 
 	ch := models.ClusterHealth{
-		EntryAddress: *entryAddress,
-		Provider:     providers.CmdProvider{},
+		EntryAddress:   entryAddress,
+		StatusProvider: providers.HTTPStatusProvider{Address: entryAddress},
 	}
 
 	ch.Update()
